@@ -1,0 +1,21 @@
+## Crontab is used for scheduling the scripts in the linux server.
+## 1. To check cron jobs for the users
+
+crontab -l
+
+## 2. to create the cron job
+
+crontab -e
+
+## 3. edit the file *(Min) *(Hour) *(date) *(month) *(day) = * * * * * command
+for example if u wanna implement the python job
+
+* * * * * python3 karan.py
+
+## 4. to check the list of jobs
+
+crontab -l 
+
+## 5. to see logs of the life
+
+cat /var/spool/mail/ec2-user
