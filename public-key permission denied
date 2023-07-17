@@ -13,3 +13,5 @@ Change:
 systemctl restart sshd
 
 chmod 0700 /home/[your-username]
+
+https://phoenixnap.com/kb/ssh-permission-denied-publickey
