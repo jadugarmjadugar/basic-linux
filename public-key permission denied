@@ -1,0 +1,15 @@
+sudo vi /etc/ssh/sshd_config
+
+Change:
+
+1. PasswordAuthentication yes
+2. ChallengeResponseAuthentication no
+3. PermitRootLogin no
+4. PubkeyAuthentication yes
+5. #GSSAPIAuthentication yes
+6. #GSSAPICleanupCredentials no
+7. UsePAM yes
+
+systemctl restart sshd
+
+chmod 0700 /home/[your-username]
