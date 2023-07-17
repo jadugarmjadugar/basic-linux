@@ -1,0 +1,11 @@
+## change the hostname
+
+sudo vi /etc/hostname
+
+  
+## change the name is host file
+
+  sudo vi /etc/hosts
+  (for both values keep localhost and then the name u wanna give)
+
+## restart the server
