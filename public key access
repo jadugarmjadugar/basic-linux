@@ -1,0 +1,39 @@
+## this is the most frequest public key issue one faces while doing ssh  ##
+NOTE: https://repost.aws/knowledge-center/ec2-linux-fix-permission-denied-errors AND https://www.youtube.com/watch?v=RpX2wRqcjRU
+
+1. Create the keys in master or the server from where you need to ssh (Main/controller)
+
+ssh-keygen
+
+2. Edit the user-data of the instance in which you wanna ssh (target or worker) and make sure you copy the complete public key of ur main server and paste it in target user-data
+
+Content-Type: multipart/mixed; boundary="//"
+MIME-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+- [scripts-user, always]
+
+--//
+Content-Type:
+    text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="userdata.txt"
+
+#!/bin/bash
+chown root:root /home 
+chmod 755 /home
+chown ec2-user:ec2-user/home/ec2-user -R
+chmod 700 /home/ec2-user
+chmod 700 /home/ec2-user/.ssh
+chmod 600 /home/ec2-user/.ssh/authorized_keys
+echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZoUObIiJ3mEjQfyqHpkWTFgEhkquK05Oh6SvlDo6J8BXnMs0tQZ5G7AI7ojdiFbTDXpkFPtzJbANXuMd8C3KKerMtL6SParjLCqvYqvJ+gmmYszQ38DeWjzJoo/ruNEqlFO0LQjBCc6BcxL07Pe+RBO9plOaRGoLbdx+9H5Lwzf1mwV6QEOWpv8xlWxjLWAFd576b17cVuT/CbtqIR2ehv2NnymwMj9JgleSYhtaSkDeL2edt2fuDZnP6lAyFbsXenwZVJs7shIjY6euBqZof2kPfGBolthir1SKWOHEENw+daFDMcX1g9Vw0kpxyu1GVlPQPeetbEKHtO6ZAoaXh ec2-user@ip-172-31-94-238.ec2.internal' >> /home/ec2-user/.ssh/authorized_keys
+chown ec2-user:ec2-user /home/ec2-user -R
+--//
