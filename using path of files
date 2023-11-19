@@ -1,0 +1,6 @@
+####### to set the path of the files in linux so that you dont have to provide in the working everytime
+
+# Link to the wesite -- https://opensource.com/article/17/6/set-path-linux
+
+
+export PATH=$PATH:/place/with/the/file
